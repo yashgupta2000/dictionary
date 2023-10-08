@@ -1,4 +1,5 @@
-import { ThemeProvider, createTheme } from '@mui/system';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { green, purple, white } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
 
 import Content from '../Content/content';
@@ -17,7 +18,7 @@ const Header = () => {
 
     const dictionaryApi = async () => {
         try {
-            const data = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${textValue}`)
+            const data = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/${category}/${textValue}`)
             setMeanings(data.data);
             console.log(data.data);
         } catch (err) {
@@ -33,39 +34,47 @@ const Header = () => {
         };
     }, [textValue, category])
 
-    const darkTheme = createTheme({
+
+    const Theme = createTheme({
         palette: {
             primary: {
-                main: '#fff'
+                main: '#ffff',
+                contrastText: '#ffff',
+                dark: '#ffff',
             },
-            mode: 'dark',
-        },
+        }
     });
 
-    return <div style={{ height: "100%", backgroundColor: "#282c34", color: 'white' }} className="App">
-        <h1 style={{ fontSize: '40px' }} className='heading'>{textValue.toUpperCase() === '' ? 'Word Hunt' : textValue.toUpperCase()}</h1>
+
+    return <div style={{ height: "100%", backgroundColor: "#282c34", color: 'white', fontFamily: 'Montserrat' }} className="App">
+        <h1 style={{ fontSize: '50px', fontFamily: 'Montserrat' }} className='heading'>{textValue.toUpperCase() === '' ? 'Word Hunt' : textValue.toUpperCase()}</h1>
 
         <div className='text-container'>
             <div className='input'>
 
-                <ThemeProvider theme={darkTheme}>
-                    <TextField onChange={(e) => {
-                        setTextValue(e.target.value)
-                        console.log(e.target.value)
-                    }} id="standard-basic" label="Standard" variant="standard" />
+                <ThemeProvider theme={Theme}>
+                    <TextField
+                        style={{ width: '100%', color: 'white' }}
+                        focused
+                        onChange={(e) => {
+                            setTextValue(e.target.value)
+                            console.log(e.target.value)
+                        }} id="standard-basic" label="Standard" variant="standard" />
                 </ThemeProvider>
+
 
 
             </div>
             <div className='input'>
-                <ThemeProvider>
+                <ThemeProvider theme={Theme}>
                     <TextField
                         id="standard-select-currency"
 
+                        focused
                         select
                         label="Language"
                         defaultValue="ENGLISH"
-                        style={{ width: 150 }}
+                        style={{ width: 150, color: 'white', }}
                         variant="standard"
                         value={category}
                         onChange={(e) => setcategory(e.target.value)}
@@ -77,6 +86,7 @@ const Header = () => {
                         ))}
                     </TextField>
                 </ThemeProvider>
+
             </div>
 
 

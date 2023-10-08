@@ -1,5 +1,5 @@
 .container {
-    background-color: #fff;
+    background-color: rgb(40, 44, 52);
     color: black;
     width: 75%;
     border: 10px solid grey;
@@ -7,7 +7,20 @@
     height: 55vh;
     border-radius: 10px;
     margin-top: 35px;
-    padding: 10px;
+    padding: 15px;
+    overflow-y: scroll;
     overflow-x: scroll;
-    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.boxes {
+    border: 1px solid white;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    border-radius: 10px;
 }
