@@ -1,3 +1,5 @@
+import './Header.css';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { green, purple, white } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
@@ -13,7 +15,13 @@ const Header = () => {
     const [meaning, setMeanings] = useState([]);
     const [textValue, setTextValue] = useState('');
     const [category, setcategory] = useState('en');
+    const handleChange = (lan) => {
+        console.log(lan);
+        setcategory(lan)
+        setTextValue("")
+        setMeanings([])
 
+    }
 
 
     const dictionaryApi = async () => {
@@ -25,6 +33,8 @@ const Header = () => {
             console.log(err)
         }
     }
+
+
 
     console.log(meaning);
 
@@ -47,7 +57,7 @@ const Header = () => {
 
 
     return <div style={{ height: "100%", backgroundColor: "#282c34", color: 'white', fontFamily: 'Montserrat' }} className="App">
-        <h1 style={{ fontSize: '50px', fontFamily: 'Montserrat' }} className='heading'>{textValue.toUpperCase() === '' ? 'Word Hunt' : textValue.toUpperCase()}</h1>
+        <h1 style={{ fontSize: '50px', fontFamily: 'Montserrat', }} className='heading'>{textValue.toUpperCase() === '' ? 'Word Hunt' : textValue.toUpperCase()}</h1>
 
         <div className='text-container'>
             <div className='input'>
@@ -56,6 +66,7 @@ const Header = () => {
                     <TextField
                         style={{ width: '100%', color: 'white' }}
                         focused
+
                         onChange={(e) => {
                             setTextValue(e.target.value)
                             console.log(e.target.value)
@@ -69,18 +80,18 @@ const Header = () => {
                 <ThemeProvider theme={Theme}>
                     <TextField
                         id="standard-select-currency"
-
+                        defaultValue="ENGLISH"
                         focused
                         select
                         label="Language"
-                        defaultValue="ENGLISH"
-                        style={{ width: 150, color: 'white', }}
+                        style={{ width: 150 }}
                         variant="standard"
                         value={category}
-                        onChange={(e) => setcategory(e.target.value)}
+
+                        onChange={(e) => handleChange(e.target.value)}
                     >
                         {categories.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
+                            <MenuItem key={option.label} value={option.label}>
                                 {option.value}
                             </MenuItem>
                         ))}
